@@ -1,3 +1,5 @@
+die;
+
 use warnings;
 use strict;
 

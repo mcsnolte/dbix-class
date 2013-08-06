@@ -15,7 +15,6 @@ sub has_many {
   my ($class, $rel, $f_class, $cond, $attrs) = @_;
 
   unless (ref $cond) {
-    $class->ensure_class_loaded($f_class);
     my ($pri, $too_many) = try { $class->_pri_cols }
       catch {
         $class->throw_exception("Can't infer join condition for '$rel' on ${class}: $_");
@@ -41,10 +40,10 @@ sub has_many {
       $guess = "using our class name '$class' as foreign key";
     }
 
-    my $f_class_loaded = try { $f_class->columns };
-    $class->throw_exception(
-      "No such column '$f_key' on foreign class ${f_class} ($guess)"
-    ) if $f_class_loaded && !$f_class->has_column($f_key);
+    #my $f_class_loaded = try { $f_class->columns };
+    #$class->throw_exception(
+    #  "No such column '$f_key' on foreign class ${f_class} ($guess)"
+    #) if $f_class_loaded && !$f_class->has_column($f_key);
 
     $cond = { "foreign.${f_key}" => "self.${pri}" };
   }

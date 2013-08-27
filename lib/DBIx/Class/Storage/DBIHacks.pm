@@ -603,8 +603,9 @@ sub _group_over_selection {
 
     if (
       !$colinfos->{$chunk}
-        or
-      $colinfos->{$chunk}{-source_alias} ne $attrs->{alias}
+      # TODO: Is restricting to main source necessary?
+		or
+	  $colinfos->{$chunk}{-source_alias} ne $attrs->{alias}
     ) {
       push @leftovers, $_;
       next;
